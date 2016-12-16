@@ -81,5 +81,5 @@ test:
 production:
   <<: *default
   database: review_production
-  username: review
+  # username: review
   password: <%= ENV['REVIEW_DATABASE_PASSWORD'] %>
