@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Profile</title>
+  </head>
+  <body>
+    <h1>Edit Your Profile</h1>
+    <form action="/users/<%=@user.id%>" method='post'>
+      <input type='hidden' name='authenticity_token' value='<%= form_authenticity_token %>'>
+      <input type='hidden' name='_method' value='put'>
+      <label>First Name<input type='text' name='user[first_name]' value="<%=@user.first_name %>"></label>
+      <label>Last Name<input type='text' name='user[last_name]' value="<%=@user.last_name %>"></label>
+      <label>Email<input type='text' name='user[email]' value="<%=@user.email %>"></label>
+      <label>Location:<input type="text" name="user[city]" value='<%=@user.city%>'>
+      <%= select_tag :'user[state]', options_for_select(us_states, "#{@user.state}") %></label>
+      <input type="submit" value="Update Records">
+    </form>
+  </body>
+</html>

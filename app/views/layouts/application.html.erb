@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Review</title>
+    <%= csrf_meta_tags %>
+
+    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+  </head>
+
+  <body>
+    <% if flash[:errors] %>
+      <% flash[:errors].each do |e| %>
+        <p><%= e %></p>
+      <% end %>
+    <% end %>
+    <% if current_user && current_page?('/events') %>
+      <a href='/users/<%=current_user.id%>/edit'>Edit My Profile</a>
+    <% elsif current_user && current_page?(id:"#{current_user.id}")%>
+      <a href='/events'>Events Dashboard</a>
+    <% elsif current_user && current_page?("/events/#{@event.id}") %>
+      <a href='/events'>Events Dashboard</a>
+    <% elsif current_user && current_page?("/events/#{@event.id}/edit") %>
+      <a href='/events'>Events Dashboard</a>
+    <% end %>
+    <% if current_user %>
+      <a href= "/logout" data-method='delete'>Logout</a>
+    <% end %>
+    <%= yield %>
+  </body>
+</html>

@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Event Detail</title>
+    <style>
+      .activities{
+        width: 373px;
+        overflow: auto;
+      }
+    </style>
+  </head>
+  <body>
+    <h1><%= @event.name %></h1>
+    <p>Host: <%= @event.user.first_name%> <%= @event.user.last_name%></p>
+    <p>Date: <%=@event.date.strftime('%B %e, %Y') %></p>
+    <p>Location: <%= @event.city %> <%= @event.state %></p>
+    <p>People who are joining the event: <%= @event.users_attend.count %></p>
+    <table>
+      <tr>
+        <th>Name</th>
+        <th>Location</th>
+        <th>State</th>
+      </tr>
+      <% @event.users_attend.each do |user| %>
+      <tr>
+        <td><%= user.first_name%> <%= user.last_name %></td>
+        <td><%= user.city %></td>
+        <td><%= user.state %></td>
+      </tr>
+      <% end %>
+    </table>
+    <h2>Discussion about this event:</h2>
+    <div class='activities'>
+      <% @comments.each do |comment| %>
+        <p><%= comment.user.first_name %> says: <%= comment.content %></p>
+        <p>--------------------------</p>
+      <% end %>
+    </div>
+    <h3>Add Comment:</h3>
+    <form action="/comment" method="post">
+      <input type='hidden' name='authenticity_token' value='<%= form_authenticity_token %>'>
+      <input type='hidden' name='event_id' value='<%=@event.id%>'>
+      <textarea name = 'content' rows='5' cols='50'></textarea>
+      <input type='submit' value='Submit Comments'>
+    </form>
+  </body>
+</html>
